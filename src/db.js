@@ -4,6 +4,6 @@ export const pool = createPool({
   host: 'localhost',
   user: 'root',
   password: '1234',
-  database: 'poto-db',
+  database: 'rest_api',
   port: 3307
 })

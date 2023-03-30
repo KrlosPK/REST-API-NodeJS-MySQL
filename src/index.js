@@ -1,10 +1,11 @@
 import express from 'express'
-import { router as publicacionesRouter } from './routes/publicaciones.routes.js'
-import { router as indexRouter } from './routes/index.routes.js'
+import { publicacionesRoutes } from './routes/publicaciones.routes.js'
 
 const app = express()
+const PORT = 3001
 
-app.listen(3000)
+app.use(express.json())
 
-app.use(publicacionesRouter)
-app.use(indexRouter)
+app.use('/api', publicacionesRoutes)
+
+app.listen(PORT)

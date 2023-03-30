@@ -1,19 +1,23 @@
 import { Router } from 'express'
 import {
-  getPublicaciones,
-  createPublicacion,
-  putPublicacion,
-  deletePublicacion
+  getPublications,
+  getPublicationById,
+  createPublication,
+  patchPublication,
+  deletePublication
 } from '../controllers/publicaciones.controller.js'
 
-const router = Router()
+const publicacionesRoutes = Router()
 
-router.get('/publicaciones', getPublicaciones)
+// ? GET
+publicacionesRoutes.get('/publicaciones', getPublications)
+publicacionesRoutes.get('/publicaciones/:id', getPublicationById)
 
-router.post('/publicaciones', createPublicacion)
+// ? POST
+publicacionesRoutes.post('/crearPublicacion', createPublication)
 
-router.put('/publicaciones', putPublicacion)
+// ? PATCH
+publicacionesRoutes.patch('/editarPublicacion', patchPublication)
+publicacionesRoutes.patch('/eliminarPublicacion', deletePublication)
 
-router.delete('/publicaciones', deletePublicacion)
-
-export { router }
+export { publicacionesRoutes }

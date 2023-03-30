@@ -1,14 +1,12 @@
-CREATE DATABASE IF NOT EXISTS `poto-db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS rest_api DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE `poto-db`;
+USE rest_api;
 
 CREATE TABLE publicaciones (
-  id_publicacion INT(11) NOT NULL,
+  id_publicacion INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   descripcion_publicacion VARCHAR(600) DEFAULT NULL,
   galeria_publicacion VARCHAR(5000) DEFAULT NULL,
   fecha_creacion DATETIME DEFAULT NULL,
   fecha_modificacion DATETIME DEFAULT NULL,
-  estado_publicacion VARCHAR(30) DEFAULT 'activo'
+  estado_publicacion VARCHAR(30) DEFAULT 'activa'
 );
-
-SELECT 1 + 1;
