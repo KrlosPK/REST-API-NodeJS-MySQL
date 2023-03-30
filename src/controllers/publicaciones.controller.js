@@ -2,6 +2,7 @@ import { pool } from '../db.js'
 
 export const getPublications = async (req, res) => {
   const [rows] = await pool.query('SELECT * FROM publicaciones WHERE estado_publicacion = "activa"')
+
   res.send(rows)
 }
 
@@ -24,6 +25,31 @@ export const createPublication = async (req, res) => {
   res.send({ rows })
 }
 
-export const patchPublication = (req, res) => res.send('editando publicaciones')
+export const patchPublication = async (req, res) => {
+  const { id } = req.params
+  const { descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion } = req.body
 
-export const deletePublication = (req, res) => res.send('eliminando publicaciones')
+  const [result] = await pool.query(
+    'UPDATE publicaciones SET descripcion_publicacion = ?, galeria_publicacion = ?, fecha_creacion = ?, fecha_modificacion = ? WHERE id_publicacion = ?',
+    [descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion, id],
+    [descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion]
+  )
+  if (result.affectedRows <= 0)
+    return res.status(404).json({
+      message: 'Publicación no encontrada'
+    })
+
+  res.sendStatus(204)
+}
+
+export const deletePublication = async (req, res) => {
+  const { id } = req.params
+
+  const [result] = await pool.query('DELETE FROM publicaciones WHERE id_publicacion = ?', [id])
+  if (result.affectedRows <= 0)
+    return res.status(404).json({
+      message: 'Publicación no encontrada'
+    })
+
+  res.sendStatus(204)
+}
