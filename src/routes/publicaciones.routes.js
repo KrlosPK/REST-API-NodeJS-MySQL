@@ -17,7 +17,9 @@ publicacionesRoutes.get('/publicaciones/:id', getPublicationById)
 publicacionesRoutes.post('/crearPublicacion', createPublication)
 
 // ? PATCH
-publicacionesRoutes.patch('/editarPublicacion', patchPublication)
-publicacionesRoutes.patch('/eliminarPublicacion', deletePublication)
+publicacionesRoutes.patch('/editarPublicacion/:id', patchPublication)
+
+// ? DELETE
+publicacionesRoutes.delete('/eliminarPublicacion/:id', deletePublication)
 
 export { publicacionesRoutes }
