@@ -1,7 +1,29 @@
-export const getPublicaciones = (req, res) => res.send('Obteniendo publicaciones')
+import { pool } from '../db.js'
 
-export const createPublicacion = (req, res) => res.send('creando publicaciones')
+export const getPublications = async (req, res) => {
+  const [rows] = await pool.query('SELECT * FROM publicaciones WHERE estado_publicacion = "activa"')
+  res.send(rows)
+}
 
-export const putPublicacion = (req, res) => res.send('editando publicaciones')
+export const getPublicationById = async (req, res) => {
+  const { id } = req.params
 
-export const deletePublicacion = (req, res) => res.send('eliminando publicaciones')
+  const [rows] = await pool.query('SELECT * FROM publicaciones WHERE id_publicacion = ?', [id])
+  if (rows.length <= 0) return res.status(404).json({ message: 'Publicación no encontrada' })
+
+  res.json(rows[0])
+}
+
+export const createPublication = async (req, res) => {
+  const { descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion } = req.body
+
+  const [rows] = await pool.query(
+    'INSERT INTO publicaciones (descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion, estado_publicacion) VALUES (?, ?, ?, ?, "activa")',
+    [descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion]
+  )
+  res.send({ rows })
+}
+
+export const patchPublication = (req, res) => res.send('editando publicaciones')
+
+export const deletePublication = (req, res) => res.send('eliminando publicaciones')
