@@ -9,7 +9,9 @@ export const getPublicationById = async (req, res) => {
   const { id } = req.params
 
   const [rows] = await pool.query('SELECT * FROM publicaciones WHERE id_publicacion = ?', [id])
-  res.send(rows)
+  if (rows.length <= 0) return res.status(404).json({ message: 'Publicación no encontrada' })
+
+  res.json(rows[0])
 }
 
 export const createPublication = async (req, res) => {
