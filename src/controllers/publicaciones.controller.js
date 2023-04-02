@@ -11,9 +11,9 @@ export const getPublications = async (req, res) => {
 }
 
 export const getPublicationById = async (req, res) => {
-  try {
-    const { id } = req.params
+  const { id } = req.params
 
+  try {
     const [rows] = await pool.query('SELECT * FROM publicaciones WHERE id_publicacion = ?', [id])
     if (rows.length <= 0) return res.status(404).json({ message: 'Publicación no encontrada' })
 
@@ -24,9 +24,9 @@ export const getPublicationById = async (req, res) => {
 }
 
 export const createPublication = async (req, res) => {
-  try {
-    const { descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion } = req.body
+  const { descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion } = req.body
 
+  try {
     const [rows] = await pool.query(
       'INSERT INTO publicaciones (descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion, estado_publicacion) VALUES (?, ?, ?, ?, "activa")',
       [descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion]
@@ -38,10 +38,10 @@ export const createPublication = async (req, res) => {
 }
 
 export const updatePublication = async (req, res) => {
-  try {
-    const { id } = req.params
-    const { descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion } = req.body
+  const { id } = req.params
+  const { descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion } = req.body
 
+  try {
     const [result] = await pool.query(
       'UPDATE publicaciones SET descripcion_publicacion = IFNULL(?, descripcion_publicacion), galeria_publicacion = IFNULL(?, galeria_publicacion), fecha_creacion = IFNULL(?, fecha_creacion), fecha_modificacion = IFNULL(?, fecha_modificacion) WHERE id_publicacion = ?',
       [descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion, id]
@@ -60,9 +60,9 @@ export const updatePublication = async (req, res) => {
 }
 
 export const deletePublication = async (req, res) => {
-  try {
-    const { id } = req.params
+  const { id } = req.params
 
+  try {
     const [result] = await pool.query('DELETE FROM publicaciones WHERE id_publicacion = ?', [id])
     if (result.affectedRows <= 0)
       return res.status(404).json({
