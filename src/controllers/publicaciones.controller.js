@@ -38,7 +38,9 @@ export const updatePublication = async (req, res) => {
       message: 'Publicación no encontrada'
     })
 
-  res.sendStatus(204)
+  const [rows] = await pool.query('SELECT * FROM publicaciones WHERE id_publicacion = ?', [id])
+
+  res.json(rows[0])
 }
 
 export const deletePublication = async (req, res) => {
