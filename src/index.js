@@ -1,12 +1,5 @@
-import express from 'express'
-import { publicacionesRoutes, empleadosRoutes } from './routes/routes.js'
-
-const app = express()
-const PORT = 3001
-
-app.use(express.json())
-
-app.use('/api', publicacionesRoutes)
-app.use('/api', empleadosRoutes)
+import { app } from './app.js'
+import { PORT } from './config.js'
 
 app.listen(PORT)
+console.log('Server running on port', PORT)
