@@ -25,14 +25,13 @@ export const createPublication = async (req, res) => {
   res.send({ rows })
 }
 
-export const patchPublication = async (req, res) => {
+export const updatePublication = async (req, res) => {
   const { id } = req.params
   const { descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion } = req.body
 
   const [result] = await pool.query(
-    'UPDATE publicaciones SET descripcion_publicacion = ?, galeria_publicacion = ?, fecha_creacion = ?, fecha_modificacion = ? WHERE id_publicacion = ?',
-    [descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion, id],
-    [descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion]
+    'UPDATE publicaciones SET descripcion_publicacion = IFNULL(?, descripcion_publicacion), galeria_publicacion = IFNULL(?, galeria_publicacion), fecha_creacion = IFNULL(?, fecha_creacion), fecha_modificacion = IFNULL(?, fecha_modificacion) WHERE id_publicacion = ?',
+    [descripcion_publicacion, galeria_publicacion, fecha_creacion, fecha_modificacion, id]
   )
   if (result.affectedRows <= 0)
     return res.status(404).json({

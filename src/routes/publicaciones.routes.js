@@ -3,7 +3,7 @@ import {
   getPublications,
   getPublicationById,
   createPublication,
-  patchPublication,
+  updatePublication,
   deletePublication
 } from '../controllers/publicaciones.controller.js'
 
@@ -17,7 +17,7 @@ publicacionesRoutes.get('/publicaciones/:id', getPublicationById)
 publicacionesRoutes.post('/crearPublicacion', createPublication)
 
 // ? PATCH
-publicacionesRoutes.patch('/editarPublicacion/:id', patchPublication)
+publicacionesRoutes.patch('/editarPublicacion/:id', updatePublication)
 
 // ? DELETE
 publicacionesRoutes.delete('/eliminarPublicacion/:id', deletePublication)

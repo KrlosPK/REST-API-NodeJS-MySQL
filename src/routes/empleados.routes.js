@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getEmployees, getEmployeeById, createEmployee, patchEmployee, deleteEmployee } from '../controllers/empleados.controller.js'
+import { getEmployees, getEmployeeById, createEmployee, updateEmployee, deleteEmployee } from '../controllers/empleados.controller.js'
 
 const empleadosRoutes = Router()
 
@@ -11,7 +11,7 @@ empleadosRoutes.get('/empleados/:id', getEmployeeById)
 empleadosRoutes.post('/crearEmpleado', createEmployee)
 
 // ? PATCH
-empleadosRoutes.patch('/editarEmpleado/:id', patchEmployee)
+empleadosRoutes.patch('/editarEmpleado/:id', updateEmployee)
 
 // ? DELETE
 empleadosRoutes.delete('/eliminarEmpleado/:id', deleteEmployee)
