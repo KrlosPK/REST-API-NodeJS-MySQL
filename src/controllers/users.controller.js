@@ -14,13 +14,13 @@ const createToken = (payload, res) => {
 }
 
 export const registerUser = async ({ body }, res) => {
-  const { email, password } = body
+  const { name, email, password } = body
   try {
     // * Verificar si el usuario existe en la base de datos
     const userExists = await verifyExistingUser({ email })
     if (userExists) return res.status(409).json({ message: 'El usuario ya existe' })
 
-    await pool.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, password])
+    await pool.query('INSERT INTO users (name, email, password) VALUES (?, ?, ?)', [name, email, password])
     res.sendStatus(200)
   } catch (error) {
     handleHTTP(res, 'Error al crear el usuario')
