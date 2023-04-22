@@ -35,7 +35,7 @@ export const loginUser = async ({ body }, res) => {
     if (login.length === 0) return res.status(404).json({ message: 'El usuario no existe' })
 
     // * Comparar contraseña ingresada con la contraseña en la base de datos
-    const { dbPassword } = login[0]
+    const dbPassword = login[0].password
     if (password !== dbPassword) return res.status(401).json({ message: 'Contraseña incorrecta' })
 
     createToken(login, res)
