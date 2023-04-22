@@ -3,8 +3,8 @@ import { loginUser, registerUser, getUsers, getUserById } from '../controllers/u
 
 const usersRoutes = Router()
 
-empleadosRoutes.get('/users', getUsers)
-empleadosRoutes.get('/users/:id', getUserById)
+usersRoutes.get('/users', getUsers)
+usersRoutes.get('/users/:id', getUserById)
 
 usersRoutes.post('/login', loginUser)
 usersRoutes.post('/register', registerUser)
