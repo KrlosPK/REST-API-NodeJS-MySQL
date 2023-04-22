@@ -16,3 +16,9 @@ CREATE TABLE publicaciones (
   fecha_modificacion DATETIME DEFAULT NULL,
   estado_publicacion VARCHAR(30) DEFAULT 'activa'
 );
+
+CREATE TABLE users (
+  id_user INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+);
