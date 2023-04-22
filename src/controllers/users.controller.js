@@ -56,7 +56,7 @@ export const getUsers = async (_req, res) => {
 export const getUserById = async ({ params }, res) => {
   const { id } = params
   try {
-    const [user] = await pool.query('SELECT * FROM users WHERE id = ?', [id])
+    const [user] = await pool.query('SELECT * FROM users WHERE id_user = ?', [id])
     if (user.length === 0) return res.status(404).json({ message: 'El usuario no existe' })
     res.status(200).json(user[0])
   } catch (error) {
