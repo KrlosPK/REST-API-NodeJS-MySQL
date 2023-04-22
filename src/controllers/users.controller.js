@@ -35,7 +35,7 @@ export const loginUser = async ({ body }, res) => {
     if (login.length === 0) return res.status(404).json({ message: 'El usuario no existe' })
 
     // * Comparar contraseña ingresada con la contraseña en la base de datos
-    const { dbPassword } = login[0]
+    const dbPassword = login[0].password
     if (password !== dbPassword) return res.status(401).json({ message: 'Contraseña incorrecta' })
 
     createToken(login, res)
@@ -56,7 +56,7 @@ export const getUsers = async (_req, res) => {
 export const getUserById = async ({ params }, res) => {
   const { id } = params
   try {
-    const [user] = await pool.query('SELECT * FROM users WHERE id = ?', [id])
+    const [user] = await pool.query('SELECT * FROM users WHERE id_user = ?', [id])
     if (user.length === 0) return res.status(404).json({ message: 'El usuario no existe' })
     res.status(200).json(user[0])
   } catch (error) {
