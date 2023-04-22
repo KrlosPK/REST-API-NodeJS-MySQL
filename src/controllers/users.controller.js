@@ -43,3 +43,23 @@ export const loginUser = async ({ body }, res) => {
     handleHTTP(res, 'Error al iniciar sesión')
   }
 }
+
+export const getUsers = async (_req, res) => {
+  try {
+    const [users] = await pool.query('SELECT * FROM users')
+    res.status(200).json(users)
+  } catch (error) {
+    handleHTTP(res, 'Error al obtener los usuarios')
+  }
+}
+
+export const getUserById = async ({ params }, res) => {
+  const { id } = params
+  try {
+    const [user] = await pool.query('SELECT * FROM users WHERE id = ?', [id])
+    if (user.length === 0) return res.status(404).json({ message: 'El usuario no existe' })
+    res.status(200).json(user[0])
+  } catch (error) {
+    handleHTTP(res, 'Error al obtener el usuario')
+  }
+}
